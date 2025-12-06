@@ -220,4 +220,6 @@ ORDER BY 2 DESC
 
 **Objective:** Perform an advanced, multi-step analysis involving both grouping and calculating a range metric, demonstrating the proper use of Common Table Expressions (CTEs).
 
+## Findings and Conclusion
+
 
