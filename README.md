@@ -62,3 +62,162 @@ ORDER BY  1;
 **Objective:**  Extract a unique mapping between every album title and its artist from the dataset.
 
 
+### 3. Get the total number of comments for tracks where `licensed = TRUE`.
+```sql
+ SELECT
+        SUM(comments) AS total_comments
+FROM spotify
+WHERE licensed ='true';
+```
+
+**Objective:** Calculate a conditional aggregate metric by focusing only on a specific subset of the data.
+
+
+### 4. Find all tracks that belong to the album type `single`.
+```sql
+SELECT 
+       * 
+FROM spotify 
+WHERE album_type='single';
+```
+
+**Objective:** Isolate and retrieve a specific category of data within the dataset based on a text-based characteristic.
+
+### 5. Count the total number of tracks by each artist.
+```sql
+SELECT 
+      artist ,
+	  COUNT(*) AS total_songs
+FROM spotify
+GROUP BY 1;
+```
+
+**Objective:** Perform a grouped aggregation to determine the contribution of every unique artist in the dataset.
+
+### 6. Calculate the average danceability of tracks in each album.
+```sql
+SELECT 
+      album,
+	  AVG(danceability) AS average_danceability
+FROM spotify
+GROUP BY 1 
+ORDER BY 2 DESC ;
+```
+
+**Objective:** Perform a segmented statistical calculation to assess the general characteristic of music within specific groupings.
+
+### 7. Find the top 5 tracks with the highest energy values.
+```sql
+SELECT 
+      track,
+	  MAX(energy) 
+FROM spotify
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
+```
+
+**Objective:** Rank the data and retrieve the records with the extreme values based on a single numerical metric.
+
+### 8. List all tracks along with their views and likes where `official_video = TRUE`.
+```sql
+SELECT 
+      track ,
+	  SUM(views) AS total_views,
+	  SUM(likes) AS total_likes	
+FROM spotify 
+WHERE official_video ='true'
+GROUP BY 1
+ORDER BY 2 DESC ;
+```
+
+**Objective:** Filter the data based on a specific content attribute and then extract key engagement metrics for that subset.
+
+### 9. For each album, calculate the total views of all associated tracks.
+```sql
+SELECT 
+      album,
+	  track,
+	  SUM(views) AS total_views
+FROM spotify 
+GROUP BY 1,2
+ORDER BY 3 DESC ;
+```
+
+**Objective:** Aggregate performance metrics across a category to determine the overall popularity or reach of a grouping entity.
+
+### 10. Retrieve the track names that have been streamed on Spotify more than YouTube.
+```sql
+SELECT * FROM
+(SELECT
+       track,
+	   COALESCE(SUM(CASE WHEN most_played_on ='Youtube' THEN stream END),0) AS streamed_on_youtube,
+	   COALESCE(SUM(CASE WHEN most_played_on ='Spotify' THEN stream END),0) AS streamed_on_spotify
+FROM spotify
+GROUP BY 1
+ORDER BY 2
+) AS t1
+WHERE 
+     streamed_on_spotify > streamed_on_youtube
+AND 
+    streamed_on_youtube <> 0 ;
+```
+
+**Objective:** Perform a comparative, row-level analysis to identify records where a specific condition between two distinct performance metrics is met
+
+
+### 11. Find the top 3 most-viewed tracks for each artist using window functions.
+```sql
+WITH ranking_artist
+AS 
+(SELECT 
+       artist,
+	   track,
+	   SUM(views) AS total_views,
+	   DENSE_RANK() OVER(PARTITION BY artist ORDER BY SUM(views) DESC ) AS rank
+FROM spotify 
+GROUP BY 1,2
+ORDER BY 1,3 DESC 
+)
+
+SELECT 
+      * 
+FROM ranking_artist
+WHERE rank <= 3 ;
+```
+
+**Objective:** Perform sophisticated, partitioned ranking and filtering within a dataset.
+
+### 12. Write a query to find tracks where the liveness score is above the average.
+```sql
+SELECT
+      track,
+	  album,
+	  liveness
+FROM spotify
+WHERE liveness > (SELECT AVG(liveness) FROM spotify);
+```
+
+**Objective:** Perform a two-step comparative analysis to identify records that perform better than the overall population mean
+
+### 13. Use a `WITH` clause to calculate the difference between the highest and lowest energy values for tracks in each album.
+```sql
+WITH cte
+AS
+(SELECT 
+	   album,
+	   MAX(energy) as highest_energy,
+	   MIN(energy) as lowest_energery
+FROM spotify
+GROUP BY 1
+)
+SELECT 
+	  album,
+	  highest_energy - lowest_energery as energy_diff
+FROM cte
+ORDER BY 2 DESC
+```
+
+**Objective:** Perform an advanced, multi-step analysis involving both grouping and calculating a range metric, demonstrating the proper use of Common Table Expressions (CTEs).
+
+
