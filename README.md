@@ -223,3 +223,21 @@ ORDER BY 2 DESC
 ## Findings and Conclusion
 
 
+▪  **Top Performance Identification:**  The analysis identified the specific set of tracks with over 1 billion streams and the Top 5 tracks based on highest energy values, demonstrating the ability to pinpoint extreme high-performing data points.
+
+▪  **Top Performance Identification:**  The analysis identified the specific set of tracks with over 1 billion streams and the Top 5 tracks based on highest energy values, demonstrating the ability to pinpoint extreme high-performing data points.
+
+
+▪  **Artist Contribution:** The project provided a clear summary of track count per artist, and critically, the Top 3 most-viewed tracks for every single artist using partitioned ranking.  
+
+
+▪  **Album Consistency vs. Variety:** By calculating the range (difference between max and min energy) for each album, the analysis generated a metric to assess the internal consistency or variation in musical style (energy) within an album.
+
+
+▪  **Platform Dominance:** The project identified tracks that show a clear preference for streaming on one platform over another, specifically listing tracks streamed more on Spotify than YouTube, which is a crucial cross-platform performance metric.
+
+
+▪  **Official Content Engagement:** By isolating tracks with official_video = TRUE, the project retrieved the cumulative views and likes for all officially supported content, providing a baseline metric for its audience reach.
+
+
+
