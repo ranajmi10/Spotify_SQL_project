@@ -222,9 +222,6 @@ ORDER BY 2 DESC
 
 ## Findings and Conclusion
 
-
-▪  **Top Performance Identification:**  The analysis identified the specific set of tracks with over 1 billion streams and the Top 5 tracks based on highest energy values, demonstrating the ability to pinpoint extreme high-performing data points.
-
 ▪  **Top Performance Identification:**  The analysis identified the specific set of tracks with over 1 billion streams and the Top 5 tracks based on highest energy values, demonstrating the ability to pinpoint extreme high-performing data points.
 
 
